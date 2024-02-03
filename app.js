@@ -1,12 +1,17 @@
-const task1 = require('./Task/task1')
-const task2 = require('./Task/task2')
-const task3= require('./Task/task3')
-const task4= require('./Task/task4')
-const task5= require('./Task/task5')
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const authRoutes = require('./routes/authRoutes');
 
-// task1()
-// task2()
-// task3()
-// task4()
-task5()
+const app = express();
+const PORT = 3000;
 
+mongoose.connect('mongodb://127.0.0.1:27017/user-data', { useNewUrlParser: true, useUnifiedTopology: true });
+
+app.use(bodyParser.json());
+
+app.use('/auth', authRoutes);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
